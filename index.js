@@ -1,7 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
+app.use(cors());
+
 const connString =
 	"mongodb+srv://admin:admin@cluster.nkyj5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
@@ -33,8 +36,8 @@ app.post("/register", (req, res) => {
 	console.log(req.body);
 	const user = new User({
 		id: req.body.id.toString(),
-		name: "test bolan",
-		email: "email@com",
+		name: req.body.name,
+		email: req.body.email,
 	});
 	user.save();
 	res.send("ok");
