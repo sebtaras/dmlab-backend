@@ -63,7 +63,6 @@ app.get("/user/:id", async (req, res) => {
 });
 
 app.put("/userFavourites/:id", async (req, res) => {
-	//handleaj mjenjanje lokacije ili dodavanje artista
 	console.log(req.body.name);
 	const userm = await User.findOneAndUpdate(
 		{ id: req.params.id },
@@ -73,7 +72,6 @@ app.put("/userFavourites/:id", async (req, res) => {
 });
 
 app.put("/userLocation/:id", async (req, res) => {
-	//handleaj mjenjanje lokacije ili dodavanje artista
 	console.log(req.body.location);
 	const userm = await User.findOneAndUpdate(
 		{ id: req.params.id },
