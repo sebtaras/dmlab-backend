@@ -56,18 +56,25 @@ app.post("/login", async (req, res) => {
 
 app.get("/user/:id", async (req, res) => {
 	const id = req.params;
-	console.log("tu sam", id);
 	const userm = await User.findOne({ id: req.params.id });
-	console.log(userm);
 	res.send(JSON.stringify(userm));
 });
 
 app.put("/userFavourites/:id", async (req, res) => {
-	console.log(req.body.name);
-	const userm = await User.findOneAndUpdate(
-		{ id: req.params.id },
-		{ $addToSet: { artists: req.body.name } }
-	);
+	console.log(req.body);
+	if (req.body.action == "add") {
+		console.log("dodajem");
+		const userm = await User.findOneAndUpdate(
+			{ if: req.params.id },
+			{ $addToSet: { artists: req.body.name } }
+		);
+	} else {
+		console.log("removeam");
+		const userm = await User.findOneAndUpdate(
+			{ id: req.params.id },
+			{ $pull: { artists: req.body.name } }
+		);
+	}
 	res.send("ok");
 });
 
